@@ -1,0 +1,1584 @@
+<html>
+<head><title>Design Enhanced Coding</title></head>
+<body onload=init()>
+
+<!-- Main Editor Style Settings -->
+
+<style>
+body { background-color:#fff; }
+img { border-radius: 4px; }
+body { font-size:18px; font-family:Ubuntu; }
+
+.DECEMenuDir { cursor:pointer; font-size:16px; margin-top:5px; margin-left:2px; color:#33F }
+.DECEMenuToggle { border-left:solid 2px #eee; margin-left:5px; margin-bottom:7px; background-color:white; font-size:16px;}
+.DECEMenuHTMLFile { font-size: 14px  ; color:black; }
+.DECEMenuOtherFile { opacity: 0.6; font-size: 10px; margin:1px; color:red}
+.DECELibraryImage { height:24px; width:auto; margin:1px;  opacity:0.6; border:solid 1px gray;}
+.DECELibraryImage:hover { height:24px; width:auto; margin:1px; opacity:1;}
+.DECEImage_onclickHTML { height:24px; width:24px; margin:1px; border:solid 1px #33c;box-shadow:2px 2px 1px #77f; opacity:0.7; }
+.DECEImage_onclickHTML:hover { opacity:1; } 
+.DECEImage_onclickJS { height:24px; width:24px; margin:1px; border:solid 1px #c57; box-shadow:2px 2px 1px #f9c; opacity:0.7; }
+.DECEImage_onclickJS:hover { opacity:1; }
+.MainCodeStyle { font-size: 18px; font-family:ubuntu; background-color:#fff; margin:8px; height:auto; padding:3px;}
+.ToolbarIcon { height:24px; width:24px; margin:2px; border:solid 2px #eee; opacity:0.85; }
+.ToolbarIcon:hover{ opacity:1; } 
+
+.sandwich {margin-left:10px;  margin-top:4px; margin-bottom:10px; margin-right:2px; vertical-align: top; border:solid 1px #AAA; box-shadow: 2px 2px 1px #333; background-color:#fff; color:#000; }
+.spanwich {margin-left:10px;  margin-top:4px; margin-bottom:10px; margin-right:2px; vertical-align: top; border:solid 1px #AAA; box-shadow: 2px 2px 1px #333; background-color:#fff; color:#000; }
+.codeblock {margin-left:10px;  margin-top:4px; margin-bottom:10px; margin-right:2px; vertical-align: top; border:solid 1px #AAA; box-shadow: 2px 2px 1px #333; background-color:#fff; color:#000; }
+.callbackfn { margin-left:14px; margin-top:4px; margin-bottom:10px;  margin-right:-1px; vertical-align: top; border:solid 5px #33a;  background-color:#33a; color:#fff; border-radius: 20px;}
+.comment { font-size:9; color:gray; background-color:yellow; border:solid 2px yellow;}
+.linenum {position:absolute; left:-3px; width:30px; text-align:right; height:12px; font-size: 8; color:#777; }
+.Rewrite { height:18px; border-radius: 4px; }
+.NextImgSrc { height:18px; border-radius: 4px; }
+.QuoteStyle { font-size: 15px; color:orange }
+.LogicTable { border-radius:8px; }
+.EncodeOuter { border:dotted 1px red; padding:2px }
+.SVGroup {  cursor: pointer; border:solid 2px #ccf; border-radius:20px; margin:6px; padding:4px; }
+ svg { cursor: crosshair; border:solid 1px black; box-shadow:2px 2px 1px #777; }
+rect { opacity:0.7; }
+rect:hover { opacity: 0.9; }
+.SVGIcon { height:24px; width:auto; margin:1px;  opacity:0.6; border:solid 1px gray;}
+.SVGIcon:hover { height:24px; width:auto; margin:1px; opacity:1;}
+
+td { background-color:white; }
+</style>
+
+
+<!--  ******************  PAGE LAYOUT **************************** -->
+<div style="position:absolute; left:250px; top:36px; width:950px; height:auto; background-color:#eef; border:solid 1px #ccf; ">
+<div id=coderoot contenteditable=false spellcheck=false class=MainCodeStyle style="white-space: pre-wrap"><div style="background-color:#9BF; width:100%; height:100%; padding:2px;"> 
+<center>
+<h1><span style="padding:10px; background-color:orange; border:solid 1px gray; border-radius:20px;box-shadow:2px 2px 2px #aaa; color:#333">NodeCode</span> for coding above the cloudline.</h1>
+<h2>Write, edit, and test code with a <span title="Tested with Google Chrome & Mozilla Firefox"><i>browser.</i></span></h2>
+<img src=/images/default.jpg>
+  
+<div style="color:black; font-size:18px;text-align:left;width:800px; line-height:28px">
+<hr style="opacity:0.4">
+<b style="color:white">An ultralight node editor</b>
+
+Before <span style="padding:3px; background-color:orange; border:solid 1px gray; border-radius:6px;box-shadow:1px 1px 1px #aaa; color:#333">NodeCode</span> editing HTML-based code was as primitive as <b style="background-color:yellow">&lt;html contenteditable&gt;</b>, AKA the "<a href="https://www.google.com/?gws_rd=ssl#safe=off&q=liz+quilty" target=_blank>Liz Quilty</a> editor" when she popularized it in early <u>2014</u>. By then browsers already had most of the complex editing functionality built-in, but web security made persistence a kludge. By <u>2015</u> Node.js had matured and was the obvious choice for a consistent language editor for web applications and general purpose coding in any language that needed to transcend the text barrier.
+
+<hr style="opacity:0.4">
+<b style="color:white">Browsers do most of the work!</b>
+
+<span style="padding:3px; background-color:orange; border:solid 1px gray; border-radius:6px;box-shadow:1px 1px 1px #aaa; color:#333">NodeCode</span> has a very limited set of features because browsers now have great editing tools and consoles. <u>Browsers play a central role in today's software economy</u> and integrate the opinions of developers across many important communities. They implement the lastest web standards, help maintain backwards compatibility, and are therefore some of the safest platforms for building relevant long-term value and development assets. 
+
+<hr style="opacity:0.4">
+<b style="color:white"><span style="padding:3px; background-color:orange; border:solid 1px gray; border-radius:6px;box-shadow:1px 1px 1px #aaa; color:#333">NodeCode</span> main features:</b>
+<li> Save HTML-code with automatic translation into plain text code
+<li> Simple installation: NodeCode.js and index.html
+<li> Extensible high visibility add-on architecture
+<li> General purpose design-enhanced coding in any language
+
+<hr style="opacity:0.4">
+<img src=/images/save.jpg height=16> Save updates <u>only the .html version</u> of code
+<img src=/images/translate.jpg height=16 style="border-radius:8px"> Translate saves <u>plain text version AND .html version</u> of code
+<img src=/images/system.jpg height=16 style="border-radius:8px"> Runs Javascript projects (more details below)
+<br><hr style="opacity:0.4">
+<img src=/images/folder.png height=16 style="border-radius:8px"> The filesystem view in the left pane is read-only
+<img src=/images/folder.png height=16 style="border-radius:8px"> Copy and manage files via the operating system
+<img src=/images/srccode.jpg height=16 style="border-radius:8px"> Editor works with a ".html" appended to each plain text source code file (eg DataViz.js.html )
+<img src=/images/folder.png height=16 style="border-radius:8px"> Exotic extensions can be added to whitelist in NodeCode.js & index.html
+<br><hr style="opacity:0.4">
+<b style="color:white">Manually creating editable .html source code file</b>
+
+1. Create a blank filename adding .html to plain text source filename (eg code.c.html )
+2. Refresh index.html & select filename.(ext).html
+3. Begin writing and/or paste plain text 
+
+<hr style="opacity:0.4">
+<b style="color:white">Editable .html source from existing plain text file</b><br>
+1. Copy source files to project directory
+2. For exotic source files add extensions to NodeCode.js & index.html 
+3. Refresh index.html & click on plain source code file
+4. filename.(ext).html should now be located in the same directory
+
+<hr style="opacity:0.4">
+<b style="color:white">Running Javascript projects from single file</b>
+
+<li>Clicking Run button will create a wrapper to the .js file (eg Hello.js )
+<li>If a base html file is found, that will be opened instead (eg Hello.html for Hello.js.html )
+
+<hr style="opacity:0.4">
+<b style="color:white">URLs</b>
+
+<li>All image and script URLs are relative to root directory of NodeCode & index.html
+<li>&lt;script src="/Projects/HelloWorld/Hello.js"&gt;
+<li>&lt;img src="/images/save.jpg"&gt;
+
+<hr style="opacity:0.4">
+<b style="color:white">Writing Hello</b>
+
+<li>Using operating system create directory "Hello" under Projects directory
+<li>Using operating system create file "Hello.js.html" under "Hello" directory
+<li>Refresh index.html & click on "Hello.js.html"
+<li>Type the following lines:
+
+<div style="border:solid 1px #ddd; padding:5px;font-size:12px; color:gray; line-height:20px">console.log("hello");
+alert("hello");
+document.body.innerHTML = "&lt;div id=hello&gt;hello&lt;/div&gt;";
+alert("hello again");
+document.getElementById("hello").innerHTML = "hello again";</div>
+<li>Note: as you type lines some symbols should transform into design elements.
+<li>Click <img src="/images/system.jpg" height=16> to save, translate, and run.
+
+<hr style="opacity:0.4">
+<b style="color:white">Clicking on images in the toolbar</b>
+
+<li>By default images will be inserted at the cursor position as an icon-sized symbol
+<li>The default Rewrite value is the image's filename without the extension
+
+<hr style="opacity:0.4">
+<b style="color:white">Special _onclick.html add ons</b>
+
+<li>When an image has a corresponding "(imgbase)_onclick.html" it becomes a special button
+<li>Clicking the image inserts the html in the corresponding _onclick.html at the cursor position.
+
+<hr style="opacity:0.4">
+<b style="color:white">Special _onclick.js add ons</b>
+
+<li>When an image has a corresponding "(imgbase)_onclick.js" it becomes a special button
+<li>Clicking the image executes the corresponding _onclick.js code
+<li>Contextually process on cursor position or selected elements in the editor
+<li>Call functions in root index.html file
+
+<hr style="opacity:0.4">
+<b style="color:white">Tricks and tips for a brave new (code editing) world</b>
+
+<li> Contenteditable editor behavior is based on a very complex set of rules
+<li> Sometimes using Shift-enter will produce a better result than Enter
+<li> HTML & CSS are very expressive, but keep design relatively simple at first.  
+<li> Iterate from draft mode (minimal design) to high-quality mature code
+<li> Focus design enhancement where it will make the most impact
+<li> Prioritize design where the most developers will see and reuse code.
+<li> Reduce acclimation time and provide faster use features for core APIs.
+
+</div>
+<br><br><br><br><br><br><br><br><br>
+</center>
+</div>
+
+</div> 
+</div>
+
+<!-- ***************  TOOLBAR: Save, Verify, Translate, Run ************************ -->
+<div id=MainToolbar style="position:fixed; left:248px; top:0px; height:30px;margin:0px; border:solid 1px #ddd;  box-shadow: 3px 3px 1px #888888; background-color:white; border-radius:5px;">
+<img id=SaveFileIcon class=ToolbarIcon title="Save" src="/images/save.jpg" onclick="SaveFileIconClick();ParseClassAutoTextToDesignSpec( );"> 
+
+<img id=TranslateIcon class=ToolbarIcon title="Translate & Save" src="/images/translate.jpg" onclick="TranslateIconClick();ParseClassAutoTextToDesignSpec( );">
+<img id=RunIcon class=ToolbarIcon title="Run" src="/images/system.jpg" onclick="TranslateIconClick(); RunAppClick();">
+
+</div>
+
+<div id=StatusUpdates style="position:fixed; left:10px; top:10px; font-size:12px">Status Updates go here</div>
+
+<div id=LineNumSec style="position:absolute; left:220; top:36px; text-align:right;">
+</div>
+
+<!-- ***************  THE  IMPORTANT FILE SELECTION POSITIONING ********* -->
+<div id=FileSelection style="position:fixed; max-height:90%; overflow-y:scroll; left:3px; top: 36px; width:230; height:auto; border:solid 1px black;  box-shadow: 8px 8px 4px #888888;">
+[FILESELECTION]
+</div>
+
+
+<script>
+var BASEURL = "http://localhost:8080";
+var ExtWhitelist = [ "js", "pl", "c", "java", "cpp", "h", "php" ];
+var xmlhttp = new XMLHttpRequest();
+var CurFilenameEditing="";
+var CurLastSave="";
+var bDialogManualSave=false;
+var OnclickFiles=new Object();
+
+function init()   /* Transform the plain filesystem into a more usable format */ 
+{
+   var HiddenDirs = ["/node_module"];
+   var DMDs = document.getElementsByClassName("DECEMenuDir");
+   for (var i=0; i<DMDs.length; i++) 
+      for( var j=0; j<HiddenDirs.length;j++)
+          if(DMDs[i].getAttribute("title").indexOf(HiddenDirs[j])>=0)
+             DMDs[i].setAttribute("style", "display:none");
+
+   var EditFileSpecified = document.location.href.split("editing=");
+   if (EditFileSpecified.length==2) { OpenFile(EditFileSpecified[1]); }
+
+   var NoDisplay = new Array("/EditorFiles");
+   var arr = document.getElementsByClassName("DECEMenuDir");
+   for (var i=arr.length-1; i >=0; i--) 
+   { bShow=1; 
+      for (var j=0; j<NoDisplay.length; j++) {   if (arr[i].getAttribute("title").indexOf(NoDisplay[j]) >= 0) bShow=0; }
+      if (!bShow) { arr[i].outerHTML=""; }
+   }
+
+   var NoDisplay = new Array("/NodeCode.js", "/index.html"); 
+   var arr = document.getElementsByClassName("DECEMenuHTMLFile");
+   for (var i=arr.length-1; i >=0; i--) 
+   {  bShow=1; 
+      var title = arr[i].getAttribute("title");
+
+      /* blacklist */
+      for (var j=0; j<NoDisplay.length; j++) {  if (title.indexOf(NoDisplay[j]) >= 0) bShow=0; }
+
+      /* remove all "_onclick" files from navdiv  */
+      if (title.indexOf("_onclick.html") >= 0) { bShow=0; OnclickFiles[title] =1;  }
+  
+      if (!bShow) { arr[i].outerHTML=""; }      
+   }
+
+   var arr = document.getElementsByClassName("DECEMenuOtherFile");
+   for (var i=arr.length-1; i >=0; i--) 
+   { bShow=1; 
+      var title = arr[i].getAttribute("title");
+
+      for (var j=0; j<NoDisplay.length; j++) {    if (arr[i].getAttribute("title").indexOf(NoDisplay[j]) >= 0) bShow=0; }
+
+      if (title.indexOf("_onclick.js") >= 0) { bShow=0; OnclickFiles[title] =1;  }
+
+      if (!bShow) { arr[i].outerHTML=""; }
+      else
+      {
+        var title = arr[i].getAttribute("title");
+        if (title)
+        {
+          var FC  = title.split("."); var Ext = FC[FC.length-1];
+        }
+      }
+   }
+
+  /* convert DECE Images that have corresponding _onclick.html -> DECEImage_onclickHTML */
+  var arr = document.getElementsByClassName("DECELibraryImage");
+  for (var i=arr.length-1; i >=0; i--) 
+  {  var title = arr[i].getAttribute("title");
+      if (title) 
+      { var F = title.split("."); var BaseImg = F[0];
+         if (OnclickFiles[BaseImg + "_onclick.html"] ) 
+         { arr[i].setAttribute("data", BaseImg + "_onclick.html"); 
+            var G = BaseImg.split("/"); var InsStr = G[G.length-1];
+            arr[i].setAttribute("title", "Insert " + InsStr );
+            arr[i].setAttribute("class", "DECEImage_onclickHTML");
+         }
+         if (OnclickFiles[BaseImg + "_onclick.js"] ) 
+         { arr[i].setAttribute("data", BaseImg + "_onclick.js"); 
+            var G = BaseImg.split("/"); var InsStr = G[G.length-1];
+            arr[i].setAttribute("title", InsStr );
+            arr[i].setAttribute("class", "DECEImage_onclickJS");
+         }
+      } 
+  }
+
+  /* Add icon images to folders */
+  var arr = document.getElementsByClassName("DECEMenuDir");
+  for (var i=arr.length-1; i>=0; i--) arr[i].innerHTML  = "<img src='/images/folder.png' height=12>" + arr[i].innerHTML;
+
+  /* Add icon to source code files serialized as HTML ---- but redden non-code html files */
+ var arr = document.getElementsByClassName("DECEMenuHTMLFile");
+  for (var i=arr.length-1; i>=0; i--)
+  { 
+     if (arr[i].innerHTML.match(/^[^\.]*\.html$/)) arr[i].setAttribute("style", "color:orange; opacity:.7; font-size:9px; margin:1px");
+     if (arr[i].innerHTML.match(/.*\..*\.html$/))  arr[i].innerHTML  = "<img src='/images/srccode.jpg' height=10>" + arr[i].innerHTML;  
+  }
+
+  /**** load translators ***/
+  DynamicallyLoadTranslators();
+}
+
+document.onclick = function(evt)
+{ 
+   var trg = evt.target;
+   if (trg.nodeType!=1) return;
+   var trgClass = trg.getAttribute("class");
+   var trgTitle = trg.getAttribute("title");
+
+   if (trgClass == "DECEMenuHTMLFile" )
+   { 
+       if ( ConfirmIfFileNotSaved() )
+       { OpenFile(trgTitle);       }
+   }
+
+   if (trgClass == "DECEMenuOtherFile")
+   {
+      if (trgTitle)
+      {
+         var FC  = trgTitle.split("."); var Ext = FC[FC.length-1];
+         if (ExtWhitelist.indexOf(Ext) >= 0)
+         {
+            if ( ConfirmIfFileNotSaved() )
+            { ConvertSrcFileToHTML( trgTitle );   }     
+         }
+         else { alert("Extension not recognized as a source code file. If it is, add to ExtWhitelist in NodeCode.js and index.html"); }
+      }
+   }
+  
+   if (trgClass == "DECEImage_onclickHTML")  
+   {  var filename = trg.getAttribute("data");
+      var xmlhttp = new XMLHttpRequest(); 
+      xmlhttp.onreadystatechange=function()
+      {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        { 
+          var resp = xmlhttp.responseText; 
+          resp = resp.replace(/\n/g, " "); 
+          InsertHtmlAtCursor(resp); 
+         }          
+      }
+      xmlhttp.open("GET","index.html?NodeServerCMD=readFile&filename=" + encodeURIComponent(filename), true);
+      xmlhttp.send(); 
+   }
+
+   if (trgClass == "DECEImage_onclickJS")  
+   {  var filename = trg.getAttribute("data");
+      var xmlhttp = new XMLHttpRequest(); 
+      xmlhttp.onreadystatechange=function()
+      {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        { 
+          var resp = xmlhttp.responseText;
+          eval(resp); 
+         }          
+      }
+      xmlhttp.open("GET","index.html?NodeServerCMD=readFile&filename=" + encodeURIComponent(filename), true);
+      xmlhttp.send(); 
+   }
+
+   if (trgClass == "DECELibraryImage")
+   {
+       if (trgTitle.indexOf("/pics/")>=0)
+       {
+         var h="<" + "img class=Rewrite title='" + ImgURL2RewriteTitle(trgTitle) + "' src='" + trgTitle +"' style='height:50px;'>";
+       }
+      else
+      {
+         var h="<" + "img class=Rewrite title='" + ImgURL2RewriteTitle(trgTitle) + "' src='" + trgTitle +"' height=20>";
+      }
+      InsertHtmlAtCursor(h); 
+   }
+
+  if (trgClass == "EditTimeSelect") {  if(trg)trg.outerHTML=trg.value; }
+
+   /* MODIFY HTML GUI ELEMENTS -- then add corresponding translation features */
+  if (trg.nodeName=="SELECT") 
+  { var OPTIONs = trg.getElementsByTagName("OPTION");
+     var newOPTs="";
+     for (var i=OPTIONs.length-1; i>=0; i--) 
+       if (trg.value == OPTIONs[i].textContent) { newOPTs += "<option selected>" +  OPTIONs[i].textContent  + "</option>"; }
+       else { newOPTs += "<option>" + OPTIONs[i].textContent + "</option>";   }
+     if (trg.innerHTML != newOPTs) trg.innerHTML = newOPTs;
+  } 
+  /* CHECKBOXES next */
+  if (trg.nodeName=="INPUT" && trg.getAttribute("type")=="checkbox")
+  { if ( trg.getAttribute("checked")=="checked") { trg.removeAttribute("checked"); }
+    else { trg.setAttribute("checked", "checked"); }
+  }
+} 
+
+function ImgURL2RewriteTitle(url)
+{
+   arr=url.match(/.*\/([^\.]*)\..*$/);
+   if (arr.length>=2) return arr[1].replace(/[^a-zA-Z0-9]/g,"");
+   return "image";
+}
+
+function ConfirmIfFileNotSaved()
+{  
+   if ( CurFilenameEditing!="" && CurLastSave!=String(document.getElementById("coderoot").innerHTML) )
+   {  if (confirm("Current file not saved! Proceed Anyway?")) return true; return false; } 
+   else 
+   {  return true; }
+}
+
+function CleanHTML(txt)
+{ txt = String(txt); var brtag = "<" + "br>";
+   txt = txt.replace(/\n/g, brtag);
+   return txt;
+}
+
+function OpenFile(filename)
+{ 
+  var xmlhttp = new XMLHttpRequest(); 
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    { 
+       var resp = xmlhttp.responseText; resp=CleanHTML(resp);
+       if (resp.substr(0,3).toUpperCase()=="ERR" || resp.substr(0,1).toUpperCase()=="0")
+       { CurFilenameEditing = ""; alert("Problem opening file response = " + resp );  }
+       else
+       {  CurFilenameEditing = filename;
+
+          var F = CurFilenameEditing.split("/");
+          if (F.length>0)document.title = F[F.length-1]; 
+          var root = document.getElementById("coderoot");
+          if (resp.length < 200) resp += "<br><br>";
+          if (root) { root.innerHTML=resp; root.setAttribute("contenteditable", "true"); }
+          document.getElementById("SaveFileIcon").setAttribute("title", "Update " + filename);
+          CurLastSave=String(document.getElementById("coderoot").innerHTML);
+
+          UpdateLineNumbers(); 
+
+          ParseClassAutoTextToDesignSpec( );
+       }
+   
+    }
+  }
+  xmlhttp.open("GET","index.html?NodeServerCMD=readFile&filename=" + encodeURIComponent(filename), true);
+  xmlhttp.send();
+}
+
+function FilenameToPathFileExtArr(filename)
+{ var extstr = ""; var file = ""; var arr = new Array("","",""); var bext=0; 
+   for (var n = filename.length-1; n >= 0; n--)
+   { var c = filename.substr(n,1);
+      if (c=="/") { arr[1] = file; arr[0] = filename.substr(0,n); break; }
+      if (c=="."&&!bext) { arr[2] = extstr; file=""; bext=1; } else { file=c+file; extstr=c+extstr; }
+   }
+   return arr; 
+}
+
+function SaveFileIconClick()
+{
+    SaveFile(CurFilenameEditing);
+}
+
+function SaveFile(filename)
+{
+  if (!ValidFilename(filename)) { alert("Invalid Filename " + filename); return; }
+  
+  var xmlhttp = new XMLHttpRequest(); 
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    { 
+       var resp = xmlhttp.responseText;
+       if (resp.substr(0,3).toUpperCase()=="ERR" || resp.substr(0,1).toUpperCase()=="0")
+       { alert("Problem saving file response = " + resp );  }
+       else
+       { CurLastSave=String(document.getElementById("coderoot").innerHTML);  
+         UpdateSaveFileIcon();
+       }
+    }
+  }
+  
+  xmlhttp.open("POST","index.html?NodeServerCMD=writeFile&filename=" + encodeURIComponent(filename) + "&data=InPost", true);
+
+  var data = encodeURIComponent( document.getElementById("coderoot").innerHTML );
+  xmlhttp.send(data);  /* xmlhttp.send(); */
+}
+
+function ConvertSrcFileToHTML( filename)
+{
+  var xmlhttp = new XMLHttpRequest(); 
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {  var resp = xmlhttp.responseText;
+       if (resp.substr(0,3).toUpperCase()=="ERR" || resp.substr(0,1).toUpperCase()=="0")
+       {  alert("Problem creating:\n"+filename+ ".html\n\n(may already exist)"); }
+       else
+       {  document.location.reload(); }
+    }
+  }
+  xmlhttp.open("GET","index.html?NodeServerCMD=createFile&filename=" + encodeURIComponent(filename), true);
+  xmlhttp.send();
+}
+
+function ValidFilename(fn)
+{
+  if (fn=="" || fn.length < 4) return false
+  return true;
+}
+
+function VerifyFileIconClick()
+{  if (CurFilenameEditing=="") { alert("Not editing file"); return; }
+    VerifyFile(CurFilenameEditing);
+}
+
+function VerifyFile(filename)
+{ 
+  var xmlhttp = new XMLHttpRequest(); 
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    { 
+       var resp = CleanHTML(xmlhttp.responseText);
+       if (resp.substr(0,3).toUpperCase()=="ERR" || resp.substr(0,1).toUpperCase()=="0")
+       { alert("Problem opening file response = " + resp );  }
+       else
+       { CurFilenameEditing = filename; 
+          var F = CurFilenameEditing.split("/");
+          if (F.length>0)document.title = F[F.length-1]; 
+          if ( document.getElementById("coderoot").innerHTML==resp) { alert("Success"); } else { alert("MISMATCH!!!"); }
+       }
+    }
+  }
+  xmlhttp.open("GET","index.html?NodeServerCMD=readFile&filename=" + encodeURIComponent(filename), true);
+  xmlhttp.send();
+}
+
+function ManualSaveIconClick()
+{  bDialogManualSave=!bDialogManualSave;
+   var e = document.getElementById("ManualSaveTextArea");
+   
+  e.innerHTML =  document.getElementById("coderoot").innerHTML;  
+
+   if (bDialogManualSave) 
+   { e.style.display= "inline"; }
+   else /* assume save to enable another file edit */
+   { e.style.display= "none";  CurLastSave=String(document.getElementById("coderoot").innerHTML);  }
+}
+
+SlowBackgroundLoop();
+function SlowBackgroundLoop()
+{
+   UpdateSaveFileIcon();
+   setTimeout(SlowBackgroundLoop, 2000);
+}
+
+function SetStatusUpdate(msg)
+{ 
+   var StatusE = document.getElementById("StatusUpdates");
+   if (StatusE) StatusE.innerHTML = msg;
+}
+
+
+function UpdateSaveFileIcon()
+{ SetStatusUpdate("Saving...");
+  if (CurFilenameEditing!="" && String(document.getElementById("coderoot").innerHTML) != CurLastSave)
+   {  document.getElementById("SaveFileIcon").setAttribute("style", "border: solid 2px red;");   }
+   else
+   {  document.getElementById("SaveFileIcon").setAttribute("style",  "border: solid 2px white;");    }
+   UpdateLineNumbers();
+   SetStatusUpdate("");
+}
+
+function TranslateIconClick()
+{   if (!ValidFilename(CurFilenameEditing )) { alert("Invalid Filename " + CurFilenameEditing); return; }
+
+    /* SetStatusUpdate("Translating... (view console for progress)"); */
+
+    TranslateIconDelayed();  /*  setTimeout(TranslateIconDelayed, 50);  */
+}
+
+function TranslateIconDelayed()
+{ 
+    var d = document.getElementById("coderoot");
+    if (d)
+    { var SavedHTML = d.innerHTML;
+ console.log("BEGINNING TRANSLATION");
+       Translate(d);  /* Destructive DOM flattening to text */
+       var TranslatedCode = RemoveUnparseableCharacters( d.textContent );
+  
+       d.innerHTML = SavedHTML; /* Restoration of HTML */
+
+       /* Update DOM with Line numbers matching translated source for debugging */
+       RemoveLineNumbers(d); 
+
+       var FC = CurFilenameEditing.split(".");
+
+       if (FC.length>=3 && FC[FC.length-1] == "html" && ExtWhitelist.indexOf( FC[FC.length-2] )>=0 )
+       { var SrcFilename = CurFilenameEditing.substr(0,CurFilenameEditing.length-5); 
+  
+          var xmlhttp = new XMLHttpRequest(); 
+          xmlhttp.onreadystatechange=function()
+          {
+             if (xmlhttp.readyState==4 )
+             { 
+                var resp = xmlhttp.responseText;
+                if (resp.substr(0,3).toUpperCase()=="ERR" || resp.substr(0,1).toUpperCase()=="0")
+                { alert("Problem saving translated file: " + resp );  }
+                else
+                {                    
+                   SaveFile(CurFilenameEditing);  UpdateLineNumbers(); 
+                }
+                SetStatusUpdate("");
+             }
+           }
+         
+           /* console.log("TRANSLATED SOURCE\n\n" + TranslatedCode); */
+
+           var data = encodeURIComponent(TranslatedCode );
+           xmlhttp.open("POST","index.html?NodeServerCMD=writeFile&filename=" + encodeURIComponent(SrcFilename) + "&data=InPost", true);
+           xmlhttp.send(data); 
+       }  
+       else { alert("bad source file extension "+ SrcFilename); }
+   } 
+}
+
+
+function OrderOfTranslationSorting()
+{ 
+   if (OrderOfTranslation!="")
+   {  
+     var arr = OrderOfTranslation.split("\n");
+     for (var i = arr.length-1; i>=0; i--) if (arr[i]!="") BubbleTranslatorToTop( arr[i] );
+   }
+}
+
+function BubbleTranslatorToTop( name )
+{
+   for (var i=1; i<TranslatorName.length; i++)
+     if (TranslatorName[i].replace(/^.*\//, "") == name )
+     {  var TmpName = TranslatorName[i], TmpCode = TranslatorCode[i];
+         for (var j=i; j >= 1; j--) 
+         { TranslatorName[j] = TranslatorName[j-1];  TranslatorCode[j] = TranslatorCode[j-1];   }
+         TranslatorName[0]=TmpName; TranslatorCode[0]=TmpCode;
+     }
+}
+
+function Translate(d)  
+{ var coderoot=d; if (!coderoot) { alert("coderoot not found"); return; }
+
+  OrderOfTranslationSorting();
+  console.log("\n\nTranslating classes in Translators: ");
+  for (var TranslatorIndex=0; TranslatorIndex <TranslatorName.length; TranslatorIndex++) 
+  {  console.log("   " + TranslatorName[ TranslatorIndex ]   );   
+      
+      eval(TranslatorCode[ TranslatorIndex ] );
+  }  
+
+  InnerHTMLTags(d); 
+  RemoveTags(d); 
+                 /* InnerHTMLTags(d); is this duplicate needed? */
+  BR2Newlines(d);
+  MiscCharConversion(d); /* &nbsp; 00A0 to space */ 
+  console.log("Finished translating")
+}
+
+function OLDtranslate(d)
+{
+
+  OuterHTMLOfIds(d); 
+  // ApplyRewrites(d); 
+  EncodeOuter(d); 
+  EncodeInner(d); 
+  GUITranslation(d); 
+  ApplySandwiches(d); 
+  CodeBlocks(d); 
+  Callbacks(d); console.log("Callbacks");
+  Comments(d); console.log("Comments");
+  RemoveHTML(d);  console.log("RemoveHTML");
+  LogicTables(d);  console.log("LogicTables");
+  TranslateSVGroups(d);    console.log("TranslateSVGroups");
+  DataTables(d);  console.log("DataTables");
+  ObjectTables(d);  console.log("ObjectTables");
+  MultiSelectArrayTables(d);  console.log("MultiSelectArrayTables");
+  DelimitedDataTable(d);  console.log("DelimitedDataTable");
+
+
+}
+
+
+
+/************************** SMART EDITOR 14.8 UTILS **********************************************/
+/***** Many of these functions will be useful in add-on scripts invoked from the FileSystem menu  *******/
+ 
+
+var LastMouseX, LastMouseY, LastMouseNode;
+var LastSelectedNodes, LastSelectionHTML;
+
+function SelectedText2HTML()
+{ var sel = GetSelectedText();
+  ReplaceSelection(sel); 
+}
+
+function SelectionCompressToSymbol()
+{
+ var range, node;
+ if (window.getSelection() && window.getSelection().getRangeAt(0)) 
+ {
+  range = window.getSelection().getRangeAt(0);  
+  var newNode = document.createElement("div");
+  range.surroundContents(newNode);
+  newNode.outerHTML = "<img class=CompressedSymbol src=Symbol.jpg alt='" + encodeURIComponent(newNode.innerHTML) + "'>";
+  }
+}
+
+function GetAllSelectedNodes()
+{ var arr=new Array();
+ if (window.getSelection() && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0)) 
+ {
+   var range = window.getSelection().getRangeAt(0);
+   var p=range.cloneContents();
+   var C = p.childNodes;
+   for (var i=0; C && i < C.length; i++) arr.push(C[i]);
+ }
+ return arr;
+}
+
+function GetHTMLOfSelectedNodes()
+{
+   var selnodes = GetAllSelectedNodes();
+   var outer="";
+   for (var i=0; i < selnodes.length; i++)
+   { var n=selnodes[i];
+     if (n.nodeType==1) {  outer += n.outerHTML; } else { outer+= n.nodeValue; }   
+   }
+   return outer;
+}
+
+function SelectedHTMLintoTextbox()
+{ 
+   var outer = GetHTMLOfSelectedNodes();
+   var h = "<textarea rows=5 cols=30>" +outer + "</textarea>"; 
+   InsertHtmlAtCursor(h); 
+}
+
+function GetSelectedTextNode()
+{
+ var range, node;
+ if (window.getSelection() && window.getSelection().getRangeAt(0)) 
+ {
+  range = window.getSelection().getRangeAt(0);
+  var txt = String(range);
+  return range.startContainer;
+ }
+}
+
+function ReplaceSelection(html)
+{
+ var range, node;
+ if (window.getSelection() && window.getSelection().getRangeAt(0)) 
+ {
+  range = window.getSelection().getRangeAt(0);
+  var txt = String(range);
+  var n = range.startContainer;
+  if(range.startContainer.nodeName=="#text" && range.startContainer==range.endContainer)
+  { var arr = String(n.nodeValue).split(txt);
+    var newhtml = arr[0] + html;
+    if (arr.length > 1) newhtml += arr[1];
+    n.nodeValue=" ";
+    InsertHtmlAtCursor(newhtml);
+  }
+  else { InsertHtmlAtCursor(html + " ");
+     range= window.getSelection().getRangeAt(0); range.deleteContents();
+  }
+ }
+ 
+}
+
+function InsertHtmlAtCursor(html) 
+{
+    var range, node;
+    if (window.getSelection() && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0)) 
+    {
+      range = window.getSelection().getRangeAt(0);
+     
+      var n = range.commonAncestorContainer;
+      if (n.nodeType==3) n=n.parentNode;
+ 
+      /* make sure selection is inside coderoot NOT A MENU */
+     if(GetNodeAncestor(n, 50, "id=coderoot")
+      || (document.selection && document.selection.createRange) )
+     {
+       if (window.getSelection && window.getSelection().getRangeAt) {
+        range = window.getSelection().getRangeAt(0);
+        node = range.createContextualFragment(html);
+        range.insertNode(node);
+      } else if (document.selection && document.selection.createRange) {
+          document.selection.createRange().pasteHTML(html);
+      }
+    }
+  }
+}
+
+function GetSelectedText()
+{
+  if (window.getSelection() && window.getSelection().getRangeAt(0)) 
+  {
+    range = window.getSelection().getRangeAt(0);
+    return String(range);
+  }
+}
+
+function GetNodeAncestor(n1,max,pattern)  /* (node, 5, "attribute=value") */
+{
+  try {
+  var F = pattern.split("="); if (F.length!=2) return null;
+  for (var n = n1; n; n=n.parentNode) 
+  { if (n && n.getAttribute(F[0]) && n.getAttribute(F[0])==F[1]) return n; 
+    if (n && F[0]=="nodeName" && n.nodeName == F[1]) return n;
+    max--; if (max <= 0) return null; 
+  }
+  return null;
+  } catch(e) { return null; }
+}
+
+function CursorNode()
+{
+ var range, node;
+ if (window.getSelection() && window.getSelection().getRangeAt(0)) 
+ {
+    range = window.getSelection().getRangeAt(0);
+    return range.startContainer;
+  }
+  return null;
+}
+
+
+
+/************************** TRANSLATION SECTION *******************************************/
+/****    These functions translate HTML code into compiler and interpretter ready code.     *********/
+
+function DelimitedDataTable(d)
+{ 
+}
+
+
+function EncodeOuter(d)
+{ 
+}
+
+function EncodeInner(d)
+{  var EOs = d.getElementsByClassName("EncodeInner");
+   for (var i=EOs.length-1; i>=0; i--) 
+      EOs[i].outerHTML = "decodeURIComponent(\""+encodeURIComponent(EOs[i].innerHTML)+"\")";  
+}
+
+function MultiSelectArrayTables(d)
+{
+  var MSATs = d.getElementsByClassName("MultiSelectArrayTable");
+  for (var i=MSATs.length-1; i>=0; i--)
+  { var h="[";
+     var TRs = MSATs[i].getElementsByTagName("TR");
+     for (var j=0; j<TRs.length; j++)
+     { var TDs = TRs[j].getElementsByTagName("TD");
+        if(TDs.length>=2&&TDs[0].textContent.indexOf("1")>=0) 
+        { if (h.length>1) h+=","; h+= TDs[1].innerHTML; }
+     }
+     h+="]";
+     MSATs[i].outerHTML = h;
+  }
+}
+
+function OuterHTMLOfIds(d)
+{
+   var Outers = d.getElementsByClassName("OuterHTMLOfId");
+   for (var i=Outers.length-1; i>=0; i--)
+   {
+      var id = Outers[i].textContent.replace(/^[ ]*/,"").replace(/[ ]*$/,"");
+      var n = document.getElementById(id);
+      if (n) Outers[i].outerHTML = "decodeURIComponent(\"" + encodeURIComponent(n.outerHTML) +"\")";
+   }
+}
+
+function GUITranslation(d)
+{
+}
+
+
+function MiscCharConversion(d)
+{
+   var str = String(d.innerHTML).replace( /\00A0/g, " "); 
+   str = str.replace( /\&nbsp\;/g, " "); 
+   d.innerHTML = str;
+}
+
+function ObjectTables(d)
+{ var OTs = d.getElementsByClassName("ObjectTable");
+   for (var i=OTs.length-1; i >= 0; i--)
+   {  var h="{ "; 
+       var TRs=OTs[i].getElementsByTagName("TR");
+       for (r=0;r<TRs.length;r++)
+       { var TDs=TRs[r].getElementsByTagName("TD");
+          if (TDs.length>=2 && TDs[0].textContent.match(/[a-zA-Z]/)   )
+          {  if (r>0) h+=", ";
+              if (TDs[1].textContent.match(/[a-zA-Z0-9\'\"]/))
+              { h+=TDs[0].textContent.replace(/[\r\n ]/g,"") + " : " +TDs[1].textContent;  }
+              else { h+=TDs[0].textContent.replace(/[\r\n ]/g,"") + " : \"\" "; }
+          }     
+        }
+      h += " }";
+      OTs[i].outerHTML = h;
+   }
+}
+
+function CopyAndPastes(d)
+{ 
+}
+
+function DataTables(d)
+{ 
+}
+
+function TranslateSVGroups(d)
+{
+   var SVGs = document.getElementsByClassName("SVGeometry");
+   for (var index=SVGs.length-1; index >= 0 ; index--)
+   {
+      TranslateSVGroup( SVGs[index]);
+   } 
+}
+
+function TranslateSVGroup(g)
+{  
+   var arr, strW="", strH="", svg=g, xscale=1, yscale=1;
+   arr = g.getElementsByClassName("SVGdimensions"); 
+   if (arr && arr.length>=1) 
+   { var F = String(arr[0].innerHTML).split(" x "); 
+      if (F.length>=2){strW=F[0]; strH=F[1];} else {console.log("parse err SVGdimensions");}
+   }  else { console.log("Missing SVGdimensions"); }
+ 
+   var svgWidth = svg.width.baseVal.value, svgHeight = svg.height.baseVal.value;
+   if (strW.indexOf("%")>0) { xscale = parseFloat(strW) / 100.0; } else { xscale = parseFloat(strW) / svgWidth; }
+   if (strH.indexOf("%")>0) { yscale = parseFloat(strH) / 100.0; } else {  yscale = parseFloat(strH) / svgHeight; }
+
+   var elementNames = [ ],  elements = "";
+   var arrRects= [ ], curR;
+
+   arr = svg.getElementsByTagName("rect");  
+   for (var i=0; i < arr.length; i++)
+   {  if (arr[i].getAttribute("export")!="1")continue;
+      var r = arr[i]; var t="";
+      var subtitles = r.getElementsByTagName("title"); 
+      if (subtitles.length >= 1) t = subtitles[0].innerHTML;
+      if (!t || t=="") t= "rect" + Math.floor(1.0+ i);
+      
+      curR = { name: t, x: Math.floor(xscale*r.getAttribute("x")), y: Math.floor(yscale * r.getAttribute("y")), 
+                       width: Math.floor(xscale * r.getAttribute("width")), height: Math.floor(yscale*r.getAttribute("height")), src: encodeURIComponent(arr[i].outerHTML) };
+      arrRects.push(curR);
+
+      elementNames.push(t);
+   }
+
+   /* ADD LTRB geometry for contained elements */
+
+   for (var i=0;i<arrRects.length;i++)
+   { var container = null;
+      for (var j=0; j<arrRects.length; j++)
+      { if(i==j)continue; 
+         if (IsInsideContainer(arrRects[i], arrRects[j]))
+         { if (!container || IsSmallerContainer(arrRects[j], arrRects[container] ) ) container=j; }
+      }
+      var contRect = { x:0, y:0, width: Math.floor(svgWidth*xscale), height: Math.floor(svgHeight*yscale) };
+      if (container!=null) contRect=arrRects[container];
+
+      arrRects[i].left = arrRects[i].x - contRect.x;
+      arrRects[i].top = arrRects[i].y - contRect.y;
+      arrRects[i].right = contRect.width - arrRects[i].width - arrRects[i].left;
+      arrRects[i].bottom = contRect.height - arrRects[i].height - arrRects[i].top;
+   }
+
+   for (var i=0; i < arrRects.length; i++)
+   { var r=arrRects[i];
+     elements += ", " + t + ": {type:'rect', x:"+ r.x +",y:"+ r.y + ",width:"+ r.width +",height:"+ r.height + ",left:" + r.left + 
+          ",top:" + r.top + ",right:" + r.right+ ",bottom:" + r.bottom + ",src:'" + arrRects[i].src + "'}"; 
+   }
+
+   /* EXPORT TEXT ELEMENTS */
+   arr = svg.getElementsByTagName("text");  
+   for (var i=0; i < arr.length; i++)
+   {  if (arr[i].getAttribute("export")!="1")continue;
+      var t="";
+      var subtitles = arr[i].getElementsByTagName("title"); 
+      if (subtitles.length >= 1) t = subtitles[0].innerHTML;
+      if (!t || t=="") t= "text" + Math.floor(1.0+ i);
+ 
+      var x = Math.floor(xscale*arr[i].getAttribute("x"));
+      var y = Math.floor(yscale * arr[i].getAttribute("y"));
+      var LTRB = GetLTRBAttributes(x,y,1,1, arrRects);
+      if (!LTRB) LTRB = { left:x, top:y, right: Math.floor(xscale*svgWidth-x), bottom: Math.floor(yscale*svgHeight-y) };
+
+      elements += ", " + t + ": { type:'text',x:"+ x +",y:"+ y +",left:"+ LTRB.left +",top:"+ LTRB.top +",right:"+ LTRB.right + ",bottom:" +LTRB.bottom;
+      elements += ", value: \"" + arr[i].innerHTML.replace(/.*\>/,"").replace(/\<.*/,"") + "\""; 
+      elements += ", src:'" + encodeURIComponent( arr[i].outerHTML ) + "'}";
+      elementNames.push(t);
+   }
+
+   /* EXPORT CIRCLES */
+   arr = svg.getElementsByTagName("circle");  
+   for (var i=0; i < arr.length; i++)
+   {  if (arr[i].getAttribute("export")!="1")continue;
+      var t="";
+      var subtitles = arr[i].getElementsByTagName("title"); 
+      if (subtitles.length >= 1) t = subtitles[0].innerHTML;
+      if (!t || t=="") t= "circle" + Math.floor(1.0+ i);
+ 
+      var cx = Math.floor(xscale*arr[i].getAttribute("cx"));
+      var cy = Math.floor(yscale * arr[i].getAttribute("cy"));
+      var r = Math.floor(xscale*arr[i].getAttribute("r"));
+      var LTRB = GetLTRBAttributes(cx,cy,1,1, arrRects);
+      if (!LTRB) LTRB = { left:cx, top:cy, right: Math.floor(xscale*svgWidth-cx), bottom: Math.floor(yscale*svgHeight-cy) };
+
+      elements += ", " + t + ": { type:'circle',r:"+ r + ",cx:"+ cx +",cy:"+ cy +",left:"+ LTRB.left +",top:"+ LTRB.top +",right:"+ LTRB.right + ",bottom:" +LTRB.bottom+ ",src:'"+encodeURIComponent(arr[i].outerHTML)+"'}";
+      elementNames.push(t);
+   }
+
+   /* FINISH EXPORT */
+   var maindim = "strWidth: \"" + strW + "\", strHeight:\"" + strH + "\"";
+   maindim += ", xscale:" + xscale + ", yscale:" + yscale; 
+   maindim += ", svgWidth:" + svgWidth + ", svgHeight:" + svgHeight;
+
+   g.outerHTML =  "{ " + maindim + elements + ", elementNames: " + JSON.stringify(elementNames) + ", src:'"+ encodeURIComponent( g.innerHTML) +"' } ";
+}
+
+function GetLTRBAttributes(x,y,w,h, arrRects)
+{
+      var container = null;
+      for (var j=0; j<arrRects.length; j++)
+      { 
+         if (IsInsideContainer( {x:x,y:y,width:w,height:h}, arrRects[j]))
+         { if (!container || IsSmallerContainer(arrRects[j], arrRects[container] ) ) container=j; }
+      }
+      
+      if (container!=null) 
+      { var r = arrRects[container]; return { left:x - r.x, top:y-r.y, right:r.x+r.width-x, bottom:r.y+r.height-y }; }
+      return null;
+}
+
+function IsInsideContainer(e, rect)
+{ if (e.x > rect.x && e.y > rect.y && e.x+e.width < rect.x + rect.width && e.y + e.height < rect.y + rect.height) return 1;return 0; }
+
+function IsSmallerContainer(A, B) { if (A.width * A.height < B.width * B.height) return 1; return 0;}
+
+function LogicTables(d)
+{
+}
+
+function UnpackStructures(d)
+{
+}
+
+function RemoveUnparseableCharacters(a)
+{ var nstr="";
+   a= String(a);
+   for (var i=0; i < a.length;i++)
+   {
+      var cc = a.charCodeAt(i);
+      if (cc<=128) nstr+=String.fromCharCode(cc);
+   }
+   return nstr;
+}
+
+function AddNewlineToDivs(d)
+{
+   var rws = d.getElementsByTagName("div");
+   for (var i = rws.length-1; i >= 0; i=i-1)
+   { 
+      rws[i].outerHTML = "\n" + rws[i].outerHTML ; 
+  } 
+}
+
+
+function ApplyRewrites(d)
+{ 
+}
+
+function ApplySandwiches(d)
+{
+}
+
+function CodeBlocks(d)
+{
+//   var rws = d.getElementsByClassName("codeblock");
+//   for (var i = rws.length-1; i >= 0; i=i-1)
+//   { rws[i].outerHTML = "{" + rws[i].innerHTML + "<br>}"; }
+}
+
+function Callbacks(d)
+{
+//   var rws = d.getElementsByClassName("callbackfn");
+//   for (var i = rws.length-1; i >= 0; i=i-1)
+//   { rws[i].outerHTML =  rws[i].innerHTML ; }
+}
+
+function Comments(d)
+{ 
+}
+
+function RemoveHTML(d)
+{
+//   var rws = d.getElementsByClassName("HTML");
+//   for (var i = rws.length-1; i >= 0; i=i-1)
+//   { rws[i].outerHTML =  "" ; }
+}
+
+
+function RemoveLineNumbers(d)
+{
+   var rws = d.getElementsByClassName("linenum");
+   for (var i = rws.length-1; i >= 0; i=i-1)
+   { rws[i].outerHTML =  "" ; }
+}
+
+
+function RemoveTags(d )
+{ var arr = new Array("script", "style");
+   for (var j=0; j < arr.length; j++)
+   {
+     var rws = d.getElementsByTagName(arr[j]);
+     for (var i = rws.length-1; i >= 0; i=i-1)
+     { rws[i].outerHTML = ""; }   
+  }
+}
+
+function InnerHTMLTags(d ) /* Non-coding Divs & Spans */
+{ 
+   var rws = d.getElementsByTagName("div");
+   for (var i = rws.length-1; i >= 0; i=i-1)
+   { rws[i].outerHTML =  rws[i].innerHTML }     
+   
+   var rws = d.getElementsByTagName("span");
+   for (var i = rws.length-1; i >= 0; i=i-1)
+   { rws[i].outerHTML = rws[i].innerHTML; }     
+}
+
+function BR2Newlines(d)
+{
+   var rws = d.getElementsByTagName("BR");
+   for (var i = rws.length-1; i >= 0; i=i-1)
+   { rws[i].outerHTML =  "\n" ; }
+}
+
+function AddLineNumbersToTextSource(a)
+{
+   var L = a.split("\n");
+   var ret = "";
+   for (var i=0; i < L.length; i++)
+   {  ret +=  (1+i) + L[i] + "\n"; }
+   return ret;
+}
+
+function WalkDOMRecursive( node, fn )
+{
+    fn(node);
+    node = node.firstChild;
+    while (node) 
+    {
+        WalkDOMRecursive( node, fn );
+        node = node.nextSibling;
+    }
+}
+
+var CurLinesHTML="";
+var CurLinenum=0;
+var LastNumDisplayed=0;
+var RootY=0;
+
+function UpdateLineNumbers()
+{ CurLinenum=0; LastNumDisplayed=0; CurLinesHTML="";
+   var root = document.getElementById("coderoot");
+   var rect = root.getBoundingClientRect();
+   RootY = rect.top;
+   WalkDOMRecursive(root, UpdateLineNumOnNode );
+   var L = document.getElementById("LineNumSec");
+   L.innerHTML = CurLinesHTML;
+}
+
+function UpdateLineNumOnNode(node)
+{  
+   if (node && node.nodeName=="BR") 
+   { 
+      CurLinenum++; 
+   }   
+
+   if (node && node.nodeName=="DIV") 
+   {  var rect = node.getBoundingClientRect();
+      CurLinenum++;   
+   }
+
+  if (node && LastNumDisplayed < CurLinenum && node.getBoundingClientRect)
+   { 
+      var rect = node.getBoundingClientRect();       
+      if (rect.height > 0  )
+      {
+        CurLinesHTML += LineNumberToHTML(CurLinenum,  rect.top-RootY+16);
+        LastNumDisplayed=CurLinenum;
+      }
+   }
+
+}
+
+function RefreshFileTree() { document.location.reload(); }
+
+function LineNumberToHTML(n, y)
+{  return "<" + "span class=linenum style='top:" + y + "px;'>" + n + "<" + "/span>";   }
+
+
+
+
+
+/*  ***************************  GEOMETRY SVGroup **********************
+  ********************* for application positioning needs ****************************/
+
+
+var SVGMouseMove = {x:0,y:0}, SVGMouseDown={x:0,y:0}, SVGMouseUp={x:0,y:0};
+var SVGDrawMode="",SVGDrawShape="";
+var SVGSelection, SVGOrigPos, SVGStroke="black", SVGFill="orange", SVGStrokeWidth=1;
+var SVGPalette = [ "red", "green", "orange", "blue", "purple", "pink", "yellow", "brown" ];
+  
+document.onmousedown = function(evt)
+{  if (evt.which === 3) { return; /* ignore right click */ }
+
+    var e = evt.target; var svgeom=e;
+    var ep; if(e) ep=e.parentNode;  
+    if (ep && ep.nodeType==1 && ep.getAttribute("class")=="SVGeometry") svgeom=ep; 
+    if (svgeom.getAttribute("class")!="SVGeometry") return; 
+
+    SVGMouseDown = SVGeometryOffset(evt); 
+    
+   /* Edit an element on the svg -- both via HTML or reposition */
+
+   if (SVGDrawMode=="" &&  svgeom && ep==svgeom)
+   { 
+      SVGSelection = e; SVGDrawMode="move"; 
+      if (e.getAttribute("x")) SVGOrigPos = { x: e.getAttribute("x"), y:e.getAttribute("y") };
+      if (e.getAttribute("cx")) SVGOrigPos = { x: e.getAttribute("cx"), y:e.getAttribute("cy") };
+      /*  Assume Mx,y (all relative draws...) */
+      if (e.getAttribute("d")) 
+      { SVGOrigPos=SVGMouseDown;  /* default to cursor (less graceful) */
+         var F = e.getAttribute("d").split(" "); var G=F[0].substring(1).split(",");
+         if (G.length==2) SVGOrigPos = { x: G[0], y: G[1] }; 
+      }
+      return;
+   }
+
+   /* draw new elements */
+  
+   if (  SVGDrawMode=="new" && SVGDrawShape!="")
+   {  
+      if (SVGDrawShape == "+Rectangle")
+      { SVGFill = SVGPalette[ Math.floor(Math.random() * SVGPalette.length ) ];
+         svgeom.innerHTML += "<rect export=1 x=" + SVGMouseDown.x + " y=" + SVGMouseDown.y + " width=20 height=20 fill='" + SVGFill+ "' stroke='" + SVGStroke + "' stroke-width='" + SVGStrokeWidth + "'><title>Box</title></rect>" ; 
+         SVGDrawMode="edit";  
+      }
+
+      if(SVGDrawShape == "+Text")
+      {
+         svgeom.innerHTML += "<text export=1 x=" + SVGMouseDown.x + " y=" + SVGMouseDown.y + " font-size='12px'><title>var</title>value</text>" ; 
+         SVGDrawMode=""; SVGDrawShape=""; 
+      }
+
+      if(SVGDrawShape == "+Node")
+      {  SVGFill = SVGPalette[ Math.floor(Math.random() * SVGPalette.length ) ];
+         var newhtml = "<circle export=1 r=8 cx=" + SVGMouseDown.x + " cy=" + SVGMouseDown.y + " stroke='black' stroke-width='1' fill='" + SVGFill+ "' ></circle>";
+         newhtml += "<text export=1 x=" + (SVGMouseDown.x-10) + " y=" + (20.0 + SVGMouseDown.y) + " font-size='12px'>node</text>" ; 
+         svgeom.innerHTML += newhtml;  SVGDrawMode=""; SVGDrawShape=""; 
+      }
+
+      if(SVGDrawShape=="+Arrow")
+      { var newarrow = "<path export=1 fill='#ccf' stroke=#33f stroke-width=1 d='" ;
+         newarrow += ArrowGeometryD(SVGMouseDown, {x:10+SVGMouseDown.x, y:SVGMouseDown.y} );  
+         newarrow += "' />";
+         svgeom.innerHTML += newarrow; SVGDrawMode="edit"; 
+      }
+
+      if(SVGDrawShape=="+Line")
+      { var newarrow = "<path export=1 fill='#ccf' stroke=#555 stroke-width=2 d='" ;
+         newarrow += LineGeometryD(SVGMouseDown, {x:10+SVGMouseDown.x, y:SVGMouseDown.y} );  
+         newarrow += "' />";
+         svgeom.innerHTML += newarrow; SVGDrawMode="edit"; 
+      }
+
+      if(SVGDrawShape=="+BiArrow")
+      { var newarrow = "<path export=1 fill='yellow' stroke=#888 stroke-width=1 d='" ;
+         newarrow += BiArrowGeometryD(SVGMouseDown, {x:10+SVGMouseDown.x, y:SVGMouseDown.y} );  
+         newarrow += "' />";
+         svgeom.innerHTML += newarrow; SVGDrawMode="edit"; 
+      }
+
+
+   } 
+}
+
+function ArrowGeometryD(p1, p2)
+{ var uv = [ [-.02, .04],[.80,.03],[.77,.08],[1,0] , [.77,-.08], [.80,-.03], [-.02,-.04] ];
+  return PathGeometryD(p1,p2,uv);
+}
+
+function LineGeometryD(p1, p2)
+{ var uv = [ [1,0] ];
+   return PathGeometryD(p1,p2,uv)
+}
+
+function BiArrowGeometryD(p1, p2)
+{ var uv = [ [.23, .08], [.2 ,.03 ], [.80,.03],[.77,.08], [1,0] , [.77,-.08], [.80,-.03], [.20,-.03], [.23 ,-.08 ] ];
+  return PathGeometryD(p1,p2,uv)
+}
+
+function PathGeometryD(p1, p2, uv)
+{ var x,y, prevx, prevy;
+   var dir = { x:p2.x-p1.x, y:p2.y-p1.y }, dist=Math.sqrt(dir.x*dir.x+dir.y*dir.y);
+   var scale= 5*Math.sqrt(dist)/dist,orth= { x:-dir.y*scale, y:dir.x*scale };
+   var d = "M" + p1.x + "," + p1.y; prevx=p1.x; prevy=p1.y;
+   for (var i=0; i < uv.length; i++) {
+     x=Math.floor(p1.x + dir.x * uv[i][0] + orth.x * uv[i][1]  );
+     y=Math.floor( p1.y + dir.y * uv[i][0] + orth.y * uv[i][1]  );
+     d+= " l" + (x-prevx) + "," + (y-prevy); prevx=x; prevy=y; 
+   } 
+   d+=" Z";
+   return d;
+}
+
+
+document.onmousemove = function(evt)
+{  var e = evt.target; 
+   var svgeom=e;
+    var ep; if(e) ep=e.parentNode;  
+    if (ep && ep.nodeType==1 && ep.getAttribute("class")=="SVGeometry") svgeom=ep; 
+    if (svgeom.getAttribute("class")!="SVGeometry") return; 
+
+    SVGMouseMove =SVGeometryOffset(evt);
+    var elmt;
+    if (SVGDrawMode == "edit") 
+    { 
+       if (SVGDrawShape=="+Rectangle") 
+       { var arr = svgeom.getElementsByTagName("rect"); if (arr && arr.length>0) elmt = arr[arr.length-1];
+         if(elmt)elmt.setAttribute("width", SVGMouseMove.x - SVGMouseDown.x); 
+         if(elmt)elmt.setAttribute("height", SVGMouseMove.y - SVGMouseDown.y); 
+       }
+
+       if (SVGDrawShape=="+Arrow") 
+       {  var arr = svgeom.getElementsByTagName("path"); if (arr && arr.length>0) elmt = arr[arr.length-1];
+          if(elmt)elmt.setAttribute("d", ArrowGeometryD(SVGMouseDown, SVGMouseMove) );
+       }
+
+       if (SVGDrawShape=="+Line") 
+       {  var arr = svgeom.getElementsByTagName("path"); if (arr && arr.length>0) elmt = arr[arr.length-1];
+          if(elmt)elmt.setAttribute("d", LineGeometryD(SVGMouseDown, SVGMouseMove) );
+       }
+
+       if (SVGDrawShape=="+BiArrow") 
+       {  var arr = svgeom.getElementsByTagName("path"); if (arr && arr.length>0) elmt = arr[arr.length-1];
+          if(elmt)elmt.setAttribute("d", BiArrowGeometryD(SVGMouseDown, SVGMouseMove) );
+       }
+
+    }
+
+    if (SVGDrawMode=="move" && SVGSelection)
+    { var NewX = SVGOrigPos.x - SVGMouseDown.x + SVGMouseMove.x;
+       var NewY = SVGOrigPos.y - SVGMouseDown.y + SVGMouseMove.y;
+
+       if ( SVGSelection.getAttribute("x") ) { /* most anchor pt shapes */
+         SVGSelection.setAttribute("x", NewX );
+         SVGSelection.setAttribute("y", NewY );
+       }
+       if ( SVGSelection.getAttribute("cx") ) {   /*circles, etc*/
+         SVGSelection.setAttribute("cx", NewX );
+         SVGSelection.setAttribute("cy", NewY );
+       }
+       if ( SVGSelection.getAttribute("d") ) { /*paths eg M1,2 L3,4 L5,6 Z    */
+          var F = SVGSelection.getAttribute("d").split(" "); 
+          F[0] = "M" + NewX + "," + NewY;
+          SVGSelection.setAttribute("d", F.join(" ") );
+       }
+ 
+        if(ep.getAttribute("class")=="SVGeometry")    /* delete element being moved if mostly off svg area */
+        { svgeom=ep;
+          var svgWidth = svgeom.width.baseVal.value, svgHeight = svgeom.height.baseVal.value;
+          var SelWidth = SVGSelection.getAttribute("width"), SelHeight=SVGSelection.getAttribute("height");
+          if (NewX + (SelWidth/5) > svgWidth || NewY + (SelHeight/5) > svgHeight || SVGMouseMove.x > svgWidth-10||SVGMouseMove.y > svgHeight-10) 
+          { SVGSelection.outerHTML = ""; SVGSelection=null;  }
+        }
+    }
+}
+
+function SVGeometryOffset(evt)
+{ var e = evt.target, ep; if(e)ep=e.parentNode;
+   if (ep && ep.nodeType==1 && ep.getAttribute("class") == "SVGeometry") e=ep;
+   var rect = e.getBoundingClientRect(); 
+   return {x: Math.floor(evt.clientX - rect.left),y: Math.floor(evt.clientY - rect.top) };
+}
+ 
+onmouseup = function(evt)
+{  
+   if (evt.target.getAttribute("class")=="SVGMode")
+   { var inner = evt.target.innerHTML;
+      SVGDrawShape=inner; SVGDrawMode="new"; console.log("drawing new " + SVGDrawShape); return;
+   }
+   SVGDrawMode=""; SVGDrawShape="";
+}
+document.onchange = function(evt)
+{
+   if (evt.target.nodeName=="TEXTAREA")
+   { evt.target.innerHTML = evt.target.value; }
+}
+
+function RunAppClick()
+{
+
+   /* SPECIAL CASE EXTENSION HANDLER */
+   var ExtensionDirectives = document.getElementsByClassName("ExtensionPageLoad");
+   if (ExtensionDirectives.length>0) 
+   { alert("reload extension in browser"); window.open(ExtensionDirectives[0].textContent); return; } 
+  
+
+   var exti = CurFilenameEditing.indexOf(".js.html"); if (exti<0) { alert("Requires .js.html extension"); return; }
+
+   if (exti >= 1)
+   {  var fn = CurFilenameEditing.substring(0,exti);
+       var HTMLs = document.getElementById("coderoot").getElementsByClassName("HTML");
+       var Files = document.getElementsByClassName("DECEMenuHTMLFile");
+       var hfn=fn+".html";
+       for (var i=0;i<Files.length;i++)
+          if (Files[i].getAttribute("title")==hfn)
+          { if (HTMLs.length>0) alert("Extraneous class=HTML opening " + hfn); window.open(hfn); return; }
+
+     /* No wrapper file found, serve virtual loader page */ 
+     var Hincludes=""; 
+     for(var i=0;i<HTMLs.length;i++) Hincludes+=HTMLs[i].textContent;
+     Hincludes+="<scr" + "ipt src='" + BASEURL + fn + ".js" +"'></scr" + "ipt>";  /* include main source last */
+
+     var html = "<html><title>" + fn.replace(/.*\//,"") + ".js</title><body>" + Hincludes + "</body></html>";
+
+     var url = "data:text/html," + encodeURIComponent(html);
+     window.open( url );
+   } 
+}
+
+window.onerror = function(evt)
+{
+   /*   if (evt) console.log(evt); */
+
+}
+
+/* --------------------------------automated----- Text to Design features ------------------- */
+
+var TextToDesignServicesRunning = { };
+var AutomaticTransforms; 
+var AutomaticImageEncodingURLs;  
+
+ /**** DEFAULT is /TextToDesign/ImgRewrites & Tranforms.txt ***/
+
+function ParseClassAutoTextToDesignSpec( ) 
+{ 
+   TextToDesignServicesRunning = { };
+   AutomaticTransforms=[ ];
+   AutomaticImageEncodingURLs = [ ];
+
+  var coderoot=document.getElementById("coderoot"); if (!coderoot) { alert("coderoot not found!"); return;}
+  var ATs = coderoot.getElementsByClassName("AutoTextToDesignSpec");
+
+  if (!ATs || ATs.length <= 0)  /********  default  ********/
+  {     if (1)
+        { var basedir = "/TextToDesign/ImgRewrites/";
+           var DLIs = document.getElementsByClassName("DECELibraryImage");
+           for (var i=0; i<DLIs.length; i++)
+           {  if (DLIs[i].getAttribute("title").indexOf(basedir)==0) AutomaticImageEncodingURLs.push( DLIs[i].getAttribute("title") );  }
+        }
+        LoadTransform( "/TextToDesign/Transforms.txt" );
+  }
+
+  if (ATs.length>0)
+  { if (ATs.length>1) alert("Extraneous class=AutoTextToDesignSpec (max 1 per source file)");
+    var TRs = ATs[0].getElementsByTagName("TR");
+    for (row=0; row<TRs.length; row++)
+    { 
+        var TDs = TRs[row].getElementsByTagName("TD");
+
+       if (TDs.length == 2 && TDs[0].textContent.match( /Transforms/i ) )
+        { var fn = TDs[1].textContent;
+           LoadTransform( fn);
+        }
+
+        if (TDs.length == 2 && TDs[0].textContent.match( /ImgRewrite/i ) )
+        { var basedir = TDs[1].textContent;
+           var DLIs = document.getElementsByClassName("DECELibraryImage");
+           for (var i=0; i<DLIs.length; i++)
+           {  if (DLIs[i].getAttribute("title").indexOf(basedir)==0) AutomaticImageEncodingURLs.push( DLIs[i].getAttribute("title") );  }
+        }
+
+     }
+  }
+
+  /* finishing up. turn on these services for newline event handling */ 
+
+  if ( AutomaticImageEncodingURLs.length>0)  TextToDesignServicesRunning["AutoImageEncode"]="1";
+  if ( AutomaticTransforms.length>0)  TextToDesignServicesRunning["AutoImageEncode"]="1"; /* set by ajax */
+} 
+
+function LoadTransform(url)
+{
+  var xmlhttp = new XMLHttpRequest(); 
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    { 
+       var resp = xmlhttp.responseText; 
+       var lines = resp.split("\n");
+       for (var i=0; i < lines.length; i++) { F = lines[i].split("|");   if(F.length==3) AutomaticTransforms.push(lines[i]); }
+       TextToDesignServicesRunning["AutomaticTransforms"]="1";
+    }
+  }
+  xmlhttp.open("GET","index.html?NodeServerCMD=readFile&filename=" + encodeURIComponent(url), true);
+  xmlhttp.send();
+}
+
+
+function TextToDesignServiceUpdate(container)
+{  var html =  container.innerHTML;
+
+   if (container && container.innerHTML && TextToDesignServicesRunning["AutomaticTransforms"]=="1")
+   {
+       for (var i=0; i<AutomaticTransforms.length;i++)
+       {  var F = AutomaticTransforms[i].split("|");  
+           var RE = new RegExp(F[0], F[1]); 
+           html=html.replace( RE, F[2]);
+       }
+   }
+
+   if (container && container.innerHTML && TextToDesignServicesRunning["AutoImageEncode"]=="1" )
+   { 
+      for (var i=0; i<AutomaticImageEncodingURLs.length; i++)
+      {
+         var F = AutomaticImageEncodingURLs[i].match( /.*\/(.*)\.[^\.]+/ );
+         if (F.length>1) 
+            html=html.replace( new RegExp( "([ \>\n\(\=\[\,\:\.])" + F[1]+"([ \(\.\; \<\>])" , "g"), "$1<img src='" + AutomaticImageEncodingURLs[i] + "' class=Rewrite title='"+F[1]+"'>$2");
+      }
+   }
+
+   if (html != container.innerHTML) container.innerHTML = html;
+}
+
+var PrevOnKeyUp;
+document.onkeyup = function(evt)
+{ 
+ 
+   var keyCode = ('which' in evt) ? evt.which : evt.keyCode;
+   var key= String.fromCharCode(keyCode);
+   if (keyCode==13 && PrevOnKeyUp!=13) 
+   { 
+      if( Object.keys( TextToDesignServicesRunning).length > 0)  
+         if (window.getSelection)  TextToDesignServiceUpdate(window.getSelection().anchorNode.parentNode); 
+   } 
+
+   PrevOnKeyUp=keyCode;
+}
+
+function DynamicallyLoadTranslators()
+{ var TranslatorsBase = "/Translators/";
+   var LFs = document.getElementsByClassName("DECEMenuOtherFile");
+   var DynamicFiles=[ ];
+   for(var i=0; i<LFs.length; i++)
+   { var title = LFs[i].getAttribute("title");
+      if (title && title.indexOf(TranslatorsBase)==0) DynamicFiles.push(title);
+   }
+   for (var i=0; i<DynamicFiles.length; i++) DynamicallyLoadTranslatorFile( DynamicFiles[i] );
+}
+
+function DynamicallyLoadTranslatorFile(fn)
+{
+  var xmlhttp = new XMLHttpRequest(); 
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    { 
+       var resp = xmlhttp.responseText; 
+       ProcessLoadedTranslatorFile(fn, resp);
+    }
+  }
+  xmlhttp.open("GET","index.html?NodeServerCMD=readFile&filename=" + encodeURIComponent(fn), true);
+  xmlhttp.send();
+}
+var TranslatorName = [ ], TranslatorCode = [ ], OrderOfTranslation;
+function ProcessLoadedTranslatorFile(fn, resp)
+{
+    if(fn.match(/\.txt$/)) { OrderOfTranslation = resp; }
+    else
+    { TranslatorName.push(fn.replace(/\..*$/, ""));
+       TranslatorCode.push( resp );
+    }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# USE | delimiter...    html.replace(RegExp($1,$2), $3)
+\)[ ]*\{[ ]*\}||)<div class="Sandwich" title="Codeblock" left="{" right="}" style="border:solid 1px #ddd;padding:2px;margin:2px;"><div><br><br></div></div>
+EasterEgg|g|(*/*)
+

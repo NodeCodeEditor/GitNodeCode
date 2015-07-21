@@ -1,0 +1,3 @@
+var str = "Special _onclick.html add ons\n------------------------------------------------\nWhen an image has a corresponding \"(imgbase)_onclick.html\" it becomes a special button\n> Clicking the image inserts that html at the cursor position.\n\nSpecial _onclick.js add ons\n------------------------------------------------\nA corresponding \"(imgbase)_onclick.js\" image becomes a special button\n> Clicking button executes that code\n> Process on cursor position\n> Process selected elements\n> Call functions in root index.html file";
+
+alert(str);
